@@ -35,13 +35,6 @@ app.use(history());
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
 
-console.log("Registrerede ruter:");
-app._router.stack.forEach(function (middleware) {
-  if (middleware.route) {
-    console.log(middleware.route.path);
-  }
-});
-
 app.listen(PORT, async () => {
   await connectDB();
 
