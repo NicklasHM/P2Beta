@@ -9,7 +9,6 @@ import cors from "cors";
 import { updateAllMachineStatuses } from "./controllers/machine.controller.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import history from "connect-history-api-fallback";
 
 dotenv.config();
 const app = express();
@@ -28,10 +27,39 @@ app.use("/api/employees", employeeRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-// SPA routing middleware - skal komme efter API routes men før statiske filer
-app.use(history());
+// Erstat med direkte rute-håndtering
+app.get("/employees", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/employeeOverview.html")
+  );
+});
 
-// Servér statiske filer fra frontend/dist mappen - skal komme efter history middleware
+app.get("/machines", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/machineOverview.html")
+  );
+});
+
+app.get("/bookings", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/bookingOverview.html")
+  );
+});
+
+app.get("/create-project", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/createProject.html")
+  );
+});
+
+// Tilføj flere ruter for andre sider...
+
+// Standardrute til forsiden
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
+
+// Servér statiske filer EFTER rute-definitionerne
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
 
