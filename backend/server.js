@@ -31,6 +31,15 @@ app.use("/api/bookings", bookingRoutes);
 // SPA routing middleware - skal komme efter API routes men før statiske filer
 app.use(history());
 
+// Tilføj dette før history middleware
+app.get("/src/pages/*", (req, res) => {
+  // Fjern /src/pages/ fra stien og redirect
+  const cleanPath = req.path.replace(/\/src\/pages\//g, "/");
+  // Fjern .html hvis det findes
+  const finalPath = cleanPath.replace(/\.html$/, "");
+  res.redirect(301, finalPath);
+});
+
 // Servér statiske filer fra frontend/dist mappen - skal komme efter history middleware
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
