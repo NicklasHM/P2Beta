@@ -21,13 +21,17 @@ const __dirname = path.dirname(__filename);
 app.use(express.json()); // allows us to accept JSON data in the request body
 app.use(cors()); // Enable CORS for all routes
 
-// API Routes - disse skal komme før history middleware
+// API Routes
 app.use("/api/projects", projectRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-// Erstat med direkte rute-håndtering
+// Statiske filer
+const staticPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(staticPath));
+
+// Specifikke sider - brug Express til traditionel servering
 app.get("/employees", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../frontend/src/pages/employeeOverview.html")
@@ -52,16 +56,10 @@ app.get("/create-project", (req, res) => {
   );
 });
 
-// Tilføj flere ruter for andre sider...
-
-// Standardrute til forsiden
+// Standardrute for alt andet - sender til forsiden
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
-
-// Servér statiske filer EFTER rute-definitionerne
-const staticPath = path.join(__dirname, "../frontend/dist");
-app.use(express.static(staticPath));
 
 app.listen(PORT, async () => {
   await connectDB();
