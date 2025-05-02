@@ -106,9 +106,7 @@
   </head>
   <body>
     <div class="navbar">
-      <a href="./employeeOverview.html" class="back-button"
-        >Tilbage til oversigt</a
-      >
+      <a href="/employees" class="back-button">Tilbage til oversigt</a>
       <h1>Medarbejder Detaljer</h1>
       <div></div>
       <!-- Empty div for flex spacing -->
@@ -121,7 +119,7 @@
 
       <div class="actions">
         <a
-          href="./employeeOverview.html"
+          href="/employees"
           class="btn-secondary"
           style="text-decoration: none; display: inline-block"
           >Tilbage</a
@@ -144,7 +142,7 @@
 
         if (!employeeId) {
           alert("Ingen medarbejder-ID angivet!");
-          window.location.href = "./employeeOverview.html";
+          window.location.href = "/employees";
           return;
         }
 
@@ -162,12 +160,12 @@
             .getElementById("btn-delete")
             .addEventListener("click", async () => {
               if (await deleteEmployee(employeeId)) {
-                window.location.href = "./employeeOverview.html";
+                window.location.href = "/employees";
               }
             });
         } catch (error) {
           alert(`Fejl ved indlæsning af medarbejder: ${error.message}`);
-          window.location.href = "./employeeOverview.html";
+          window.location.href = "/employees";
         }
       });
 

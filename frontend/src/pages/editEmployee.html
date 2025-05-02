@@ -166,12 +166,10 @@
       <div class="nav-container">
         <h1>Projektstyringssystem</h1>
         <div class="nav-links">
-          <a href="../../index.html" class="nav-link">Projekter</a>
-          <a href="employeeOverview.html" class="nav-link active"
-            >Medarbejdere</a
-          >
-          <a href="machineOverview.html" class="nav-link">Maskiner</a>
-          <a href="bookingOverview.html" class="nav-link">Bookinger</a>
+          <a href="/" class="nav-link">Projekter</a>
+          <a href="/employees" class="nav-link active">Medarbejdere</a>
+          <a href="/machines" class="nav-link">Maskiner</a>
+          <a href="/bookings" class="nav-link">Bookinger</a>
         </div>
       </div>
     </div>
@@ -228,9 +226,7 @@
           </div>
 
           <div class="btn-container">
-            <a href="employeeOverview.html" class="btn btn-secondary"
-              >Annuller</a
-            >
+            <a href="/employees" class="btn btn-secondary">Annuller</a>
             <button type="submit" class="btn btn-primary">Gem ændringer</button>
           </div>
         </form>
@@ -249,7 +245,7 @@
 
       if (!employeeId) {
         alert("Ingen medarbejder-ID angivet.");
-        window.location.href = "employeeOverview.html";
+        window.location.href = "/employees";
       }
 
       // State for skills
@@ -328,7 +324,7 @@
         } catch (error) {
           console.error("Error loading employee:", error);
           alert("Der opstod en fejl ved indlæsning af medarbejderdata.");
-          window.location.href = "employeeOverview.html";
+          window.location.href = "/employees";
         }
       }
 
@@ -390,7 +386,7 @@
           await updateEmployee(employeeId, employee);
 
           // Redirect to employee overview
-          window.location.href = "employeeOverview.html";
+          window.location.href = "/employees";
         } catch (error) {
           console.error("Error updating employee:", error);
           alert(

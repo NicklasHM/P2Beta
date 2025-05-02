@@ -250,10 +250,10 @@
       <div class="nav-container">
         <h1>Projektstyringssystem</h1>
         <div class="nav-links">
-          <a href="../../index.html" class="nav-link active">Projekter</a>
-          <a href="employeeOverview.html" class="nav-link">Medarbejdere</a>
-          <a href="machineOverview.html" class="nav-link">Maskiner</a>
-          <a href="bookingOverview.html" class="nav-link">Bookinger</a>
+          <a href="/" class="nav-link active">Projekter</a>
+          <a href="/employees" class="nav-link">Medarbejdere</a>
+          <a href="/machines" class="nav-link">Maskiner</a>
+          <a href="/bookings" class="nav-link">Bookinger</a>
         </div>
       </div>
     </div>
@@ -262,9 +262,7 @@
       <div class="card">
         <div class="card-header">
           <h2>Opret Nyt Projekt</h2>
-          <a href="../../index.html" class="back-button"
-            >Tilbage til oversigt</a
-          >
+          <a href="/" class="back-button">Tilbage til oversigt</a>
         </div>
 
         <form id="project-form">
@@ -439,7 +437,7 @@
           </div>
 
           <div class="form-buttons">
-            <a href="../../index.html" class="btn-secondary">Annuller</a>
+            <a href="/" class="btn-secondary">Annuller</a>
             <button type="submit" class="btn-primary">Gem Projekt</button>
           </div>
         </form>
@@ -544,7 +542,7 @@
             await createProject(project);
             alert("Projekt oprettet succesfuldt!");
             // Redirect to the project list page
-            window.location.href = "../../index.html";
+            window.location.href = "/";
           } catch (error) {
             alert(`Fejl ved oprettelse af projekt: ${error.message}`);
           }
