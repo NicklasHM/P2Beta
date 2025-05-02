@@ -28,6 +28,15 @@ app.use("/api/employees", employeeRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/bookings", bookingRoutes);
 
+// Servér statiske filer fra frontend/dist mappen
+const staticPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(staticPath));
+
+// Håndter client-side routing (VIGTIG del)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+
 // For SPA routing
 app.use(history());
 
