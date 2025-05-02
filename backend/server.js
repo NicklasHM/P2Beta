@@ -31,6 +31,17 @@ app.use("/api/bookings", bookingRoutes);
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
 
+// Tilføj source-mappen som statisk for at kunne hente JS-moduler
+app.use(
+  express.static(path.join(__dirname, "../frontend/src"), {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".js")) {
+        res.setHeader("Content-Type", "application/javascript");
+      }
+    },
+  })
+);
+
 // Specifikke sider - brug Express til traditionel servering
 app.get("/employees", (req, res) => {
   res.sendFile(
