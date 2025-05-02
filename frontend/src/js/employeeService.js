@@ -1,13 +1,15 @@
 // Employee Service
 // This file handles API calls for employee management
 
+import { API_URL } from "./config.js";
+
 /**
  * Fetches all employees from the API
  * @returns {Promise<Array>} Array of employee objects
  */
 export async function getEmployees() {
   try {
-    const response = await fetch("http://localhost:5000/api/employees");
+    const response = await fetch(`${API_URL}/employees`);
     const data = await response.json();
 
     if (!data.success) {
@@ -28,7 +30,7 @@ export async function getEmployees() {
  */
 export async function getEmployeeById(id) {
   try {
-    const response = await fetch(`http://localhost:5000/api/employees/${id}`);
+    const response = await fetch(`${API_URL}/employees/${id}`);
     const data = await response.json();
 
     if (!data.success) {
@@ -49,7 +51,7 @@ export async function getEmployeeById(id) {
  */
 export async function createEmployee(employee) {
   try {
-    const response = await fetch("http://localhost:5000/api/employees", {
+    const response = await fetch(`${API_URL}/employees`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +80,7 @@ export async function createEmployee(employee) {
  */
 export async function updateEmployee(id, employee) {
   try {
-    const response = await fetch(`http://localhost:5000/api/employees/${id}`, {
+    const response = await fetch(`${API_URL}/employees/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +112,7 @@ export async function deleteEmployee(id) {
       return false;
     }
 
-    const response = await fetch(`http://localhost:5000/api/employees/${id}`, {
+    const response = await fetch(`${API_URL}/employees/${id}`, {
       method: "DELETE",
     });
 
@@ -130,7 +132,7 @@ export async function deleteEmployee(id) {
         );
 
         if (confirmNavigate) {
-          window.location.href = "./bookingOverview.html";
+          window.location.href = "/bookings";
         }
         return false;
       }

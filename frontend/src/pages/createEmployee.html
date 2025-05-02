@@ -343,7 +343,11 @@
           await createEmployee(employee);
 
           // Redirect to employee overview
-          window.location.href = "employeeOverview.html";
+          alert("Medarbejder oprettet succesfuldt!");
+          form.reset();
+          skills = [];
+          renderSkills();
+          window.location.href = "/employees";
         } catch (error) {
           console.error("Error creating employee:", error);
           alert(

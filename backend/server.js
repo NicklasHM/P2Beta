@@ -56,6 +56,42 @@ app.get("/create-project", (req, res) => {
   );
 });
 
+app.get("/create-employee", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/createEmployee.html")
+  );
+});
+
+app.get("/viewEmployee", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/viewEmployee.html"));
+});
+
+app.get("/editEmployee", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/editEmployee.html"));
+});
+
+app.get("/viewProject", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/viewProject.html"));
+});
+
+app.get("/editProject", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/editProject.html"));
+});
+
+app.get("/create-machine", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/src/pages/createMachine.html")
+  );
+});
+
+app.get("/viewMachine", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/viewMachine.html"));
+});
+
+app.get("/editMachine", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/src/pages/editMachine.html"));
+});
+
 // Standardrute for alt andet - sender til forsiden
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));

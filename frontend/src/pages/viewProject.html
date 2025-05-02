@@ -257,45 +257,11 @@
           document
             .getElementById("btn-delete")
             .addEventListener("click", async () => {
-              if (confirm("Er du sikker på, at du vil slette dette projekt?")) {
-                try {
-                  // Vi prøver at slette projektet
-                  const response = await fetch(
-                    `http://localhost:5000/api/projects/${projectId}`,
-                    {
-                      method: "DELETE",
-                    }
-                  );
-
-                  const data = await response.json();
-
-                  if (!data.success) {
-                    // Specifik håndtering af fejl ved sletning af projekt, der er i brug
-                    if (data.count && data.bookings) {
-                      const bookingsList =
-                        data.bookings.slice(0, 3).join(", ") +
-                        (data.bookings.length > 3 ? "..." : "");
-
-                      const confirmNavigate = window.confirm(
-                        `Dette projekt bruges i ${data.count} booking(er) (${bookingsList}).\n\n` +
-                          `Du skal først slette eller ændre disse bookinger, før du kan slette projektet.\n\n` +
-                          `Vil du navigere til bookingsoversigten for at rette dette?`
-                      );
-
-                      if (confirmNavigate) {
-                        window.location.href = "./bookingOverview.html";
-                      }
-                      return;
-                    }
-
-                    throw new Error(data.message || "Failed to delete project");
-                  }
-
-                  alert("Projektet er slettet.");
-                  window.location.href = "../../index.html";
-                } catch (error) {
-                  alert(`Fejl ved sletning af projekt: ${error.message}`);
-                }
+              // Brug deleteProject funktionen i stedet for at implementere den igen
+              try {
+                await deleteProject(projectId);
+              } catch (error) {
+                alert(`Fejl ved sletning af projekt: ${error.message}`);
               }
             });
         } catch (error) {

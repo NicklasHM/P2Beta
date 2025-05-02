@@ -1,13 +1,15 @@
 // Project Overview functionality
 // This file handles the project management page
 
+import { API_URL } from "./config.js";
+
 /**
  * Fetches all projects from the API
  * @returns {Promise<Array>} Array of project objects
  */
 export async function getProjects() {
   try {
-    const response = await fetch("http://localhost:5000/api/projects");
+    const response = await fetch(`${API_URL}/projects`);
     const data = await response.json();
 
     if (!data.success) {
@@ -28,7 +30,7 @@ export async function getProjects() {
  */
 export async function createProject(project) {
   try {
-    const response = await fetch("http://localhost:5000/api/projects", {
+    const response = await fetch(`${API_URL}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +61,7 @@ export async function deleteProject(id) {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/api/projects/${id}`, {
+    const response = await fetch(`${API_URL}/projects/${id}`, {
       method: "DELETE",
     });
 
@@ -79,7 +81,7 @@ export async function deleteProject(id) {
         );
 
         if (confirmNavigate) {
-          window.location.href = "src/pages/bookingOverview.html";
+          window.location.href = "/bookings";
         }
         return;
       }
@@ -94,7 +96,7 @@ export async function deleteProject(id) {
       renderProjects(projects, projectList);
     } else {
       // If we're not on the main page, redirect to it
-      window.location.href = "../../index.html";
+      window.location.href = "/";
     }
 
     alert("Projektet er blevet slettet!");
@@ -248,7 +250,7 @@ export function initProjectForm() {
  */
 export async function getProjectById(id) {
   try {
-    const response = await fetch(`http://localhost:5000/api/projects/${id}`);
+    const response = await fetch(`${API_URL}/projects/${id}`);
     const data = await response.json();
 
     if (!data.success) {
@@ -270,7 +272,7 @@ export async function getProjectById(id) {
  */
 export async function updateProject(id, project) {
   try {
-    const response = await fetch(`http://localhost:5000/api/projects/${id}`, {
+    const response = await fetch(`${API_URL}/projects/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

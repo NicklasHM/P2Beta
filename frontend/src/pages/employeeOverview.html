@@ -246,10 +246,10 @@
       // Define global functions for employee actions
       window.deleteEmployee = deleteEmployee;
       window.viewEmployee = (id) => {
-        window.location.href = `viewEmployee.html?id=${id}`;
+        window.location.href = `/viewEmployee?id=${id}`;
       };
       window.editEmployee = (id) => {
-        window.location.href = `editEmployee.html?id=${id}`;
+        window.location.href = `/editEmployee?id=${id}`;
       };
 
       // State variables for sorting and filtering

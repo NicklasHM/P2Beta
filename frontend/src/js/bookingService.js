@@ -1,8 +1,7 @@
 // Booking Service
 // Dette script håndterer bookingsfunktionalitet og API-kald til backend
 
-// API URL
-const API_URL = "http://localhost:5000/api";
+import { API_URL } from "./config.js";
 
 // DOM-elementer
 const bookingTimeline = document.getElementById("bookingTimeline");
