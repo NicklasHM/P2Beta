@@ -115,9 +115,19 @@ const goToToday = () => {
 const loadMachines = async () => {
   try {
     const response = await fetch(`${API_URL}/machines`);
-    const data = await response.json();
-    machines = data;
-    return data;
+    const result = await response.json();
+
+    // Håndter forskellige response formater
+    if (result.success && Array.isArray(result.data)) {
+      machines = result.data;
+    } else if (Array.isArray(result)) {
+      machines = result;
+    } else {
+      console.error("Uventet dataformat fra maskine API:", result);
+      machines = [];
+    }
+
+    return machines;
   } catch (error) {
     console.error("Fejl ved hentning af maskiner:", error);
     return [];
@@ -154,7 +164,13 @@ const loadEmployees = async () => {
 const loadBookings = async () => {
   try {
     const response = await fetch(`${API_URL}/bookings`);
-    const data = await response.json();
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.message || "Fejl ved hentning af bookinger");
+    }
+
+    const data = result.data;
 
     // Tjek om der er bookinger med slettede maskiner eller projekter
     const invalidMachineBookings = data.filter(
@@ -268,13 +284,13 @@ const createBooking = async (bookingData) => {
       body: JSON.stringify(bookingData),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Fejl ved oprettelse af booking");
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.message || "Fejl ved oprettelse af booking");
     }
 
-    const data = await response.json();
-    return data;
+    return result.data;
   } catch (error) {
     console.error("Fejl ved oprettelse af booking:", error);
     throw error;
@@ -292,13 +308,13 @@ const updateBooking = async (id, bookingData) => {
       body: JSON.stringify(bookingData),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Fejl ved opdatering af booking");
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.message || "Fejl ved opdatering af booking");
     }
 
-    const data = await response.json();
-    return data;
+    return result.data;
   } catch (error) {
     console.error("Fejl ved opdatering af booking:", error);
     throw error;
@@ -312,9 +328,10 @@ const deleteBooking = async (id) => {
       method: "DELETE",
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Fejl ved sletning af booking");
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.message || "Fejl ved sletning af booking");
     }
 
     return true;

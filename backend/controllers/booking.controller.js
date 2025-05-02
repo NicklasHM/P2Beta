@@ -59,9 +59,9 @@ export const getBookings = async (req, res) => {
         // Populate vil ignorere null/undefined værdier
       })
       .populate("employeeIDs");
-    res.status(200).json(bookings);
+    res.status(200).json({ success: true, data: bookings });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -76,11 +76,13 @@ export const getBookingById = async (req, res) => {
       })
       .populate("employeeIDs");
     if (!booking) {
-      return res.status(404).json({ message: "Booking ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Booking ikke fundet" });
     }
-    res.status(200).json(booking);
+    res.status(200).json({ success: true, data: booking });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -100,9 +102,9 @@ export const createBooking = async (req, res) => {
         // Populate vil ignorere null/undefined værdier
       })
       .populate("employeeIDs");
-    res.status(201).json(populatedBooking);
+    res.status(201).json({ success: true, data: populatedBooking });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -111,7 +113,9 @@ export const updateBooking = async (req, res) => {
   try {
     const oldBooking = await Booking.findOne({ bookingID: req.params.id });
     if (!oldBooking) {
-      return res.status(404).json({ message: "Booking ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Booking ikke fundet" });
     }
 
     const booking = await Booking.findOneAndUpdate(
@@ -140,9 +144,9 @@ export const updateBooking = async (req, res) => {
       await updateMachineStatus(booking.machineID);
     }
 
-    res.status(200).json(booking);
+    res.status(200).json({ success: true, data: booking });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -151,7 +155,9 @@ export const deleteBooking = async (req, res) => {
   try {
     const booking = await Booking.findOne({ bookingID: req.params.id });
     if (!booking) {
-      return res.status(404).json({ message: "Booking ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Booking ikke fundet" });
     }
 
     // Slet bookingen
@@ -160,8 +166,8 @@ export const deleteBooking = async (req, res) => {
     // Opdater maskinens status
     await updateMachineStatus(booking.machineID);
 
-    res.status(200).json({ message: "Booking slettet" });
+    res.status(200).json({ success: true, message: "Booking slettet" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };

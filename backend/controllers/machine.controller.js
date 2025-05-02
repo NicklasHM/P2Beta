@@ -5,9 +5,9 @@ import Booking from "../models/booking.model.js";
 export const getMachines = async (req, res) => {
   try {
     const machines = await Machine.find({});
-    res.status(200).json(machines);
+    res.status(200).json({ success: true, data: machines });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -16,11 +16,13 @@ export const getMachineById = async (req, res) => {
   try {
     const machine = await Machine.findById(req.params.id);
     if (!machine) {
-      return res.status(404).json({ message: "Maskine ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Maskine ikke fundet" });
     }
-    res.status(200).json(machine);
+    res.status(200).json({ success: true, data: machine });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -28,9 +30,9 @@ export const getMachineById = async (req, res) => {
 export const createMachine = async (req, res) => {
   try {
     const machine = await Machine.create(req.body);
-    res.status(201).json(machine);
+    res.status(201).json({ success: true, data: machine });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -42,11 +44,13 @@ export const updateMachine = async (req, res) => {
       runValidators: true,
     });
     if (!machine) {
-      return res.status(404).json({ message: "Maskine ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Maskine ikke fundet" });
     }
-    res.status(200).json(machine);
+    res.status(200).json({ success: true, data: machine });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -56,7 +60,9 @@ export const deleteMachine = async (req, res) => {
     // Tjek først om maskinen eksisterer
     const machine = await Machine.findById(req.params.id);
     if (!machine) {
-      return res.status(404).json({ message: "Maskine ikke fundet" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Maskine ikke fundet" });
     }
 
     // Tjek om der er bookinger, der bruger denne maskine
@@ -66,6 +72,7 @@ export const deleteMachine = async (req, res) => {
 
     if (bookingsUsingMachine.length > 0) {
       return res.status(400).json({
+        success: false,
         message:
           "Kan ikke slette maskinen, da den bruges i eksisterende bookinger",
         count: bookingsUsingMachine.length,
@@ -76,9 +83,9 @@ export const deleteMachine = async (req, res) => {
     // Hvis ingen bookinger bruger maskinen, kan vi slette den
     await Machine.findByIdAndDelete(req.params.id);
 
-    res.status(200).json({ message: "Maskine slettet" });
+    res.status(200).json({ success: true, message: "Maskine slettet" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

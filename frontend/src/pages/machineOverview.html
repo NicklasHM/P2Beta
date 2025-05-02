@@ -295,7 +295,17 @@
       async function loadMachines() {
         try {
           const response = await fetch(`${API_URL}/machines`);
-          const machines = await response.json();
+          const result = await response.json();
+
+          let machines = [];
+          if (result.success && Array.isArray(result.data)) {
+            machines = result.data;
+          } else if (Array.isArray(result)) {
+            machines = result;
+          } else {
+            throw new Error("Uventet dataformat returneret fra API");
+          }
+
           renderMachineList(machines);
         } catch (error) {
           console.error("Fejl ved hentning af maskiner:", error);
@@ -405,9 +415,10 @@
             });
           }
 
-          if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || "Der opstod en fejl");
+          const result = await response.json();
+
+          if (!result.success) {
+            throw new Error(result.message || "Der opstod en fejl");
           }
 
           closeModalHandler();
@@ -436,17 +447,17 @@
             method: "DELETE",
           });
 
-          if (!response.ok) {
-            const error = await response.json();
+          const result = await response.json();
 
+          if (!result.success) {
             // Specifik håndtering af fejl ved sletning af maskine der er i brug
-            if (error.count && error.bookings) {
+            if (result.count && result.bookings) {
               const bookingsList =
-                error.bookings.slice(0, 3).join(", ") +
-                (error.bookings.length > 3 ? "..." : "");
+                result.bookings.slice(0, 3).join(", ") +
+                (result.bookings.length > 3 ? "..." : "");
 
               const confirmDelete = window.confirm(
-                `Denne maskine bruges i ${error.count} booking(er) (${bookingsList}).\n\n` +
+                `Denne maskine bruges i ${result.count} booking(er) (${bookingsList}).\n\n` +
                   `Du skal først slette eller ændre disse bookinger, før du kan slette maskinen.\n\n` +
                   `Vil du navigere til bookingsoversigten for at rette dette?`
               );
@@ -457,7 +468,7 @@
               return;
             }
 
-            throw new Error(error.message || "Der opstod en fejl");
+            throw new Error(result.message || "Der opstod en fejl");
           }
 
           loadMachines();

@@ -472,5 +472,39 @@
     </div>
 
     <script type="module" src="../js/bookingService.js"></script>
+
+    <!-- Debug script -->
+    <script>
+      // Funktion til at teste API-kald
+      async function testAPI() {
+        try {
+          console.log("Testing API call to /api/bookings");
+          const response = await fetch("/api/bookings");
+          const responseText = await response.text();
+
+          console.log("Response status:", response.status);
+          console.log("Response headers:", response.headers);
+          console.log("Raw response text:", responseText);
+
+          try {
+            const data = JSON.parse(responseText);
+            console.log("Parsed data:", data);
+
+            if (data.success && data.data) {
+              console.log("Number of bookings:", data.data.length);
+            } else if (data && Array.isArray(data)) {
+              console.log("Old format - Number of bookings:", data.length);
+            }
+          } catch (parseError) {
+            console.error("Error parsing JSON:", parseError);
+          }
+        } catch (error) {
+          console.error("Error fetching bookings:", error);
+        }
+      }
+
+      // Kører testen når siden er helt indlæst
+      window.addEventListener("load", testAPI);
+    </script>
   </body>
 </html>
