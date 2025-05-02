@@ -22,29 +22,25 @@ const __dirname = path.dirname(__filename);
 app.use(express.json()); // allows us to accept JSON data in the request body
 app.use(cors()); // Enable CORS for all routes
 
-// Routes
+// API Routes - disse skal komme før history middleware
 app.use("/api/projects", projectRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-// Servér statiske filer fra frontend/dist mappen
+// SPA routing middleware - skal komme efter API routes men før statiske filer
+app.use(history());
+
+// Servér statiske filer fra frontend/dist mappen - skal komme efter history middleware
 const staticPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(staticPath));
 
-// Håndter client-side routing (VIGTIG del)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(staticPath, "index.html"));
+console.log("Registrerede ruter:");
+app._router.stack.forEach(function (middleware) {
+  if (middleware.route) {
+    console.log(middleware.route.path);
+  }
 });
-
-// For SPA routing
-app.use(history());
-
-// Serve static files from frontend/dist
-if (process.env.NODE_ENV === "production") {
-  const staticPath = path.join(__dirname, "../frontend/dist");
-  app.use(express.static(staticPath));
-}
 
 app.listen(PORT, async () => {
   await connectDB();
