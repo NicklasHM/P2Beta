@@ -240,7 +240,7 @@
 
         if (!projectId) {
           alert("Intet projekt-ID angivet!");
-          window.location.href = "../../index.html";
+          window.location.href = "/";
           return;
         }
 
@@ -251,7 +251,7 @@
 
           // Set up button event listeners
           document.getElementById("btn-edit").addEventListener("click", () => {
-            window.location.href = `./editProject.html?id=${projectId}`;
+            window.location.href = `/editProject?id=${projectId}`;
           });
 
           document
@@ -266,7 +266,7 @@
             });
         } catch (error) {
           alert(`Fejl ved indlæsning af projekt: ${error.message}`);
-          window.location.href = "../../index.html";
+          window.location.href = "/";
         }
       });
 

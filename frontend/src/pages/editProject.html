@@ -452,7 +452,7 @@
 
         if (!projectId) {
           alert("Intet projekt-ID angivet!");
-          window.location.href = "../../index.html";
+          window.location.href = "/";
           return;
         }
 
@@ -462,7 +462,7 @@
           setupEventListeners();
         } catch (error) {
           alert(`Fejl ved indlæsning af projekt: ${error.message}`);
-          window.location.href = "../../index.html";
+          window.location.href = "/";
         }
       });
 
@@ -594,7 +594,7 @@
         try {
           await updateProject(projectId, projectData);
           alert("Projektet er opdateret!");
-          window.location.href = `./viewProject.html?id=${projectId}`;
+          window.location.href = `/viewProject?id=${projectId}`;
         } catch (error) {
           alert(`Fejl ved opdatering af projekt: ${error.message}`);
         }

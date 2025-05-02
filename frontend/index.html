@@ -215,10 +215,10 @@
       // Define global functions for project actions
       window.deleteProject = deleteProject;
       window.viewProject = (id) => {
-        window.location.href = `src/pages/viewProject.html?id=${id}`;
+        window.location.href = `/viewProject?id=${id}`;
       };
       window.editProject = (id) => {
-        window.location.href = `src/pages/editProject.html?id=${id}`;
+        window.location.href = `/editProject?id=${id}`;
       };
 
       // State variables for sorting and filtering
