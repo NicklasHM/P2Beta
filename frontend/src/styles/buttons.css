@@ -77,21 +77,3 @@
 .btn-danger:hover {
   background-color: #b71c1c;
 }
-
-.action-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.action-button {
-  padding: 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  transition: background-color 0.2s;
-}
-
-.action-button:hover {
-  background-color: #f0f0f0;
-}

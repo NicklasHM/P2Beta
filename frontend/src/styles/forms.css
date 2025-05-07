@@ -41,7 +41,6 @@ textarea {
   margin-top: 2rem;
 }
 
-/* Checkbox styling */
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -57,39 +56,8 @@ textarea {
   margin-bottom: 0;
 }
 
-/* Error message styling */
 .error-message {
   color: #d32f2f;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-}
-
-/* Multi-select styling */
-.multi-select {
-  margin-top: 0.5rem;
-}
-
-.selected-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.selected-item {
-  background-color: #e3f2fd;
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
-  display: flex;
-  align-items: center;
-}
-
-.remove-item {
-  margin-left: 0.5rem;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.remove-item:hover {
-  color: #d32f2f;
 }

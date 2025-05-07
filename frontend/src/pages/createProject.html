@@ -7,115 +7,62 @@
     <link rel="stylesheet" href="../styles/common.css" />
     <link rel="stylesheet" href="../styles/forms.css" />
     <link rel="stylesheet" href="../styles/buttons.css" />
-    <link rel="stylesheet" href="../styles/tables.css" />
-    <link rel="stylesheet" href="../styles/modals.css" />
   </head>
   <body>
-    <nav class="navbar">
-      <div class="nav-brand">Projektstyring</div>
-      <div class="nav-links">
-        <a href="projectOverview.html" class="nav-link">Projekter</a>
-        <a href="machineOverview.html" class="nav-link">Maskiner</a>
-        <a href="createProject.html" class="nav-link active">Opret Projekt</a>
+    <div class="navbar">
+      <div class="nav-container">
+        <h1>Projektstyringssystem</h1>
+        <div class="nav-links">
+          <a href="/" class="nav-link active">Projekter</a>
+          <a href="/employees" class="nav-link">Medarbejdere</a>
+          <a href="/machines" class="nav-link">Maskiner</a>
+          <a href="/bookings" class="nav-link">Bookinger</a>
+        </div>
       </div>
-    </nav>
-
+    </div>
     <div class="container">
       <div class="card">
-        <div class="card-header">
-          <h1>Opret Nyt Projekt</h1>
-        </div>
-
+        <h1>Opret nyt projekt</h1>
         <form id="createProjectForm">
-          <div class="form-row">
-            <div class="form-col">
-              <div class="form-group">
-                <label for="projectID">Projekt ID*</label>
-                <input type="text" id="projectID" name="projectID" required />
-              </div>
-            </div>
-            <div class="form-col">
-              <div class="form-group">
-                <label for="name">Projekt Navn*</label>
-                <input type="text" id="name" name="name" required />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-col">
-              <div class="form-group">
-                <label for="customer">Kunde*</label>
-                <input type="text" id="customer" name="customer" required />
-              </div>
-            </div>
-            <div class="form-col">
-              <div class="form-group">
-                <label for="price">Pris*</label>
-                <input type="number" id="price" name="price" required />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-col">
-              <div class="form-group">
-                <label for="startDate">Startdato*</label>
-                <input type="date" id="startDate" name="startDate" required />
-              </div>
-            </div>
-            <div class="form-col">
-              <div class="form-group">
-                <label for="deadline">Deadline*</label>
-                <input type="date" id="deadline" name="deadline" required />
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="projectName">Projektnavn:</label>
+            <input type="text" id="projectName" name="projectName" required />
           </div>
 
           <div class="form-group">
-            <label for="description">Beskrivelse</label>
-            <textarea id="description" name="description" rows="4"></textarea>
+            <label for="projectDescription">Beskrivelse:</label>
+            <textarea
+              id="projectDescription"
+              name="projectDescription"
+              rows="4"
+              required
+            ></textarea>
           </div>
 
           <div class="form-group">
-            <label>Inspektioner</label>
-            <div class="checkbox-group">
-              <label>
-                <input type="checkbox" name="inspections" value="safety" />
-                Sikkerhedsinspektion
-              </label>
-              <label>
-                <input type="checkbox" name="inspections" value="quality" />
-                Kvalitetskontrol
-              </label>
-              <label>
-                <input type="checkbox" name="inspections" value="maintenance" />
-                Vedligeholdelse
-              </label>
-            </div>
+            <label for="startDate">Startdato:</label>
+            <input type="date" id="startDate" name="startDate" required />
           </div>
 
           <div class="form-group">
-            <label for="machines">Maskiner</label>
-            <select id="machines" name="machines" multiple>
-              <option value="cnc1">CNC Maskine 1</option>
-              <option value="cnc2">CNC Maskine 2</option>
-              <option value="lathe1">Drejebænk 1</option>
-              <option value="mill1">Fresemaskine 1</option>
+            <label for="endDate">Slutdato:</label>
+            <input type="date" id="endDate" name="endDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+              <option value="planlagt">Planlagt</option>
+              <option value="igangværende">Igangværende</option>
+              <option value="afsluttet">Afsluttet</option>
             </select>
           </div>
 
           <div class="form-buttons">
-            <button
-              type="button"
-              class="button btn-secondary"
-              onclick="window.location.href='projectOverview.html'"
-            >
-              Annuller
-            </button>
-            <button type="submit" class="button btn-primary">
+            <button type="submit" class="button button-green">
               Opret Projekt
             </button>
+            <a href="/" class="button btn-secondary">Annuller</a>
           </div>
         </form>
       </div>
